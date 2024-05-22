@@ -119,38 +119,6 @@ add_action('rest_api_init', function () {
   ));
 });
 
-
-
-
-
-// add_action( 'init', 'wp_learn_register_meta' );
-// function wp_learn_register_meta(){
-//     register_meta(
-//         'post',
-//         'br_id',
-//         array(
-//             'single'       => true,
-//             'type'         => 'string',
-//             'default'      => '',
-//             'show_in_rest' => true,
-//         )
-//     );
-// }
-
-
-// add_action( 'rest_api_init', 'add_custom_fields' );
-// function add_custom_fields() {
-//   register_rest_field(
-//   'rides', 
-//   'br_id', //New Field Name in JSON RESPONSEs
-//   array(
-//       'get_callback'    => 'get_custom_fields', // custom function name 
-//       'update_callback' => 'update_custom_fields',
-//       'schema'          => null,
-//       )
-//   );
-// }
-
 add_action('rest_api_init', function(){
   register_rest_field('rides', 'br_id', 
     array(
@@ -166,6 +134,76 @@ add_action('rest_api_init', function(){
     'schema' => null
     )
   ); 
+  register_rest_field('rides', 'br_route_sm', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('rides', 'br_start_latlng', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  ); 
+  register_rest_field('rides', 'br_end_latlng', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
+  register_rest_field('rides', 'br_elapsed_time', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
+  register_rest_field('rides', 'br_moving_time', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
+  register_rest_field('rides', 'br_average_speed', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
+  register_rest_field('rides', 'br_max_speed', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
+  register_rest_field('rides', 'br_distance', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
+  register_rest_field('rides', 'br_total_elevation_gain', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
+  register_rest_field('rides', 'br_photos', 
+    array(
+    'get_callback' => 'get_custom_fields', 
+    'update_callback' => 'song_update_post_meta_cb', 
+    'schema' => null
+    )
+  );
 });
 
 function get_custom_fields( $object, $field_name, $request ) {
@@ -212,27 +250,11 @@ function br_add_post_meta_boxes()
 {
   add_meta_box(
     'br-id',                                    // Unique ID
-    esc_html__('Strava activity ID', '1234567890'),  // Title
+    esc_html__('Strava Activity ID', '1234567890'),  // Title
     'fun_br_id',                                // Callback function
     'rides',                                // Admin page (or post type)
     'normal',                                     // Context
     'default'                                     // Priority
-  );
-  add_meta_box(
-    'br-name',
-    esc_html__('Strava activity name', 'Lunch Ride'),
-    'fun_br_name',
-    'rides',
-    'normal',
-    'default'
-  );
-  add_meta_box(
-    'br-startlatlon',
-    esc_html__('Start lat/lng', '[51.1, -0.01]'),
-    'fun_br_startlatlon',
-    'rides',
-    'side',
-    'default'
   );
   add_meta_box(
     'br-route',
@@ -240,6 +262,86 @@ function br_add_post_meta_boxes()
     'fun_br_route',
     'rides',
     'side',
+    'default'
+  );
+  add_meta_box(
+    'br-route-sm',
+    esc_html__('Route lowres JSON', 'hello'),
+    'fun_br_route_sm',
+    'rides',
+    'side',
+    'default'
+  );
+  add_meta_box(
+    'br-start-latlng',
+    esc_html__('Start LatLng', 'hello'),
+    'fun_br_start_latlng',
+    'rides',
+    'side',
+    'default'
+  );
+  add_meta_box(
+    'br-end-latlng',
+    esc_html__('End LatLng', 'hello'),
+    'fun_br_end_latlng',
+    'rides',
+    'side',
+    'default'
+  );
+  add_meta_box(
+    'br-elapsed_time',
+    esc_html__('Elapsed Time', 'hello'),
+    'fun_br_elapsed_time',
+    'rides',
+    'normal',
+    'default'
+  );
+  add_meta_box(
+    'br-moving-time',
+    esc_html__('Moving Time', 'hello'),
+    'fun_br_moving_time',
+    'rides',
+    'normal',
+    'default'
+  );
+  add_meta_box(
+    'br-average-speed',
+    esc_html__('Average Speed', 'hello'),
+    'fun_br_average_speed',
+    'rides',
+    'normal',
+    'default'
+  );
+  add_meta_box(
+    'br-max-speed',
+    esc_html__('Max Speed', 'hello'),
+    'fun_br_max_speed',
+    'rides',
+    'normal',
+    'default'
+  );
+  add_meta_box(
+    'br-distance',
+    esc_html__('Distance', 'hello'),
+    'fun_br_distance',
+    'rides',
+    'normal',
+    'default'
+  );
+  add_meta_box(
+    'br-total-elevation-gain',
+    esc_html__('Total Elevation Gain', 'hello'),
+    'fun_br_total_elevation_gain',
+    'rides',
+    'normal',
+    'default'
+  );
+  add_meta_box(
+    'br-photos',
+    esc_html__('Photos', 'hello'),
+    'fun_br_photos',
+    'rides',
+    'normal',
     'default'
   );
 }
@@ -264,27 +366,6 @@ function fun_br_id($post)
   );
   wp_editor($field_value[0], 'br_id', $args);
 }
-function fun_br_name($post)
-{
-  wp_nonce_field(basename(__FILE__), 'br_name_nonce');
-  $field_value = get_post_meta($post->ID, 'br_name', false);
-  $args = array(
-    'wpautop' => false,
-    'media_buttons' => false,
-    'textarea_rows' => 1,
-    'teeny'         => true
-  );
-  wp_editor($field_value[0], 'br_name', $args);
-}
-function fun_br_startlatlon($post)
-{ ?>
-  <?php wp_nonce_field(basename(__FILE__), 'br_startlatlon_nonce'); ?>
-  <p>
-    <label for="br_startlatlon"><?php \_e("e.g. [51.1, -0.01]"); ?></label>
-    <br />
-    <input class="widefat" type="text" name="br_startlatlon" id="br_startlatlon" value="<?php echo esc_attr(get_post_meta($post->ID, 'br_startlatlon', true)); ?>" size="20" />
-  </p>
-<?php }
 
 function fun_br_route($post)
 {
@@ -299,6 +380,163 @@ function fun_br_route($post)
   wp_editor($field_value[0], 'br_route', $args);
 }
 
+function fun_br_route_sm($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_route_sm_nonce');
+  $field_value = get_post_meta($post->ID, 'br_route_sm', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => true,
+    'textarea_rows' => 1,
+    'teeny'         => false
+  );
+  wp_editor($field_value[0], 'br_route_sm', $args);
+}
+
+function fun_br_start_latlng($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_start_latlng_nonce');
+  $field_value = get_post_meta($post->ID, 'br_start_latlng', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_start_latlng', $args);
+}
+
+function fun_br_end_latlng($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_end_latlng_nonce');
+  $field_value = get_post_meta($post->ID, 'br_end_latlng', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_end_latlng', $args);
+}
+
+function fun_br_elapsed_time($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_elapsed_time_nonce');
+  $field_value = get_post_meta($post->ID, 'br_elapsed_time', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_elapsed_time', $args);
+}
+
+function fun_br_moving_time($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_moving_time_nonce');
+  $field_value = get_post_meta($post->ID, 'br_moving_time', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_moving_time', $args);
+}
+
+function fun_br_average_speed($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_average_speed_nonce');
+  $field_value = get_post_meta($post->ID, 'br_average_speed', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_average_speed', $args);
+}
+
+function fun_br_max_speed($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_max_speed_nonce');
+  $field_value = get_post_meta($post->ID, 'br_max_speed', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_max_speed', $args);
+}
+
+function fun_br_distance($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_distance_nonce');
+  $field_value = get_post_meta($post->ID, 'br_distance', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_distance', $args);
+}
+
+function fun_br_total_elevation_gain($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_total_elevation_gain_nonce');
+  $field_value = get_post_meta($post->ID, 'br_total_elevation_gain', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 1,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_total_elevation_gain', $args);
+}
+
+function fun_br_photos($post)
+{
+  wp_nonce_field(basename(__FILE__), 'br_photos_nonce');
+  $field_value = get_post_meta($post->ID, 'br_photos', false);
+  $args = array(
+    'wpautop' => false,
+    'media_buttons' => false,
+    'textarea_rows' => 5,
+    'teeny'         => false,
+    'dfw' => false,
+    'tinymce' => false,
+    'quicktags' => false
+  );
+  wp_editor($field_value[0], 'br_photos', $args);
+}
+
 function br_save_post_class_meta($post_id, $post)
 {
   /* Verify the nonce before proceeding. \*/
@@ -308,10 +546,37 @@ function br_save_post_class_meta($post_id, $post)
   if (!isset($_POST['br_name_nonce']) || !wp_verify_nonce($_POST['br_name_nonce'], basename(__FILE__))) {
     return $post_id;
   }
-  if (!isset($_POST['br_startlatlon_nonce']) || !wp_verify_nonce($_POST['br_startlatlon_nonce'], basename(__FILE__))) {
+  if (!isset($_POST['br_route_nonce']) || !wp_verify_nonce($_POST['br_route_nonce'], basename(__FILE__))) {
     return $post_id;
   }
-  if (!isset($_POST['br_route_nonce']) || !wp_verify_nonce($_POST['br_route_nonce'], basename(__FILE__))) {
+  if (!isset($_POST['br_route_sm_nonce']) || !wp_verify_nonce($_POST['br_route_sm_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_start_latlng_nonce']) || !wp_verify_nonce($_POST['br_start_latlng_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_end_latlng_nonce']) || !wp_verify_nonce($_POST['br_end_latlng_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_elapsed_time_nonce']) || !wp_verify_nonce($_POST['br_elapsed_time_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_moving_time_nonce']) || !wp_verify_nonce($_POST['br_moving_time_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_average_speed_nonce']) || !wp_verify_nonce($_POST['br_average_speed_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_max_speed_nonce']) || !wp_verify_nonce($_POST['br_max_speed_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_distance_nonce']) || !wp_verify_nonce($_POST['br_distance_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_total_elevation_gain_nonce']) || !wp_verify_nonce($_POST['br_total_elevation_gain_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
+  if (!isset($_POST['br_photos_nonce']) || !wp_verify_nonce($_POST['br_photos_nonce'], basename(__FILE__))) {
     return $post_id;
   }
 
@@ -339,11 +604,32 @@ function br_save_post_class_meta($post_id, $post)
   if (isset($_POST['br_name'])) {
     update_post_meta($post_id, 'br_name', $_POST['br_name']);
   }
-  if (isset($_POST['br_startlatlon'])) {
-    update_post_meta($post_id, 'br_startlatlon', $_POST['br_startlatlon']);
+  if (isset($_POST['br_start_latlng'])) {
+    update_post_meta($post_id, 'br_start_latlng', $_POST['br_start_latlng']);
   }
-  if (isset($_POST['br_route'])) {
-    update_post_meta($post_id, 'br_route', $_POST['br_route']);
+  if (isset($_POST['br_end_latlng'])) {
+    update_post_meta($post_id, 'br_end_latlng', $_POST['br_end_latlng']);
+  }
+  if (isset($_POST['br_elapsed_time'])) {
+    update_post_meta($post_id, 'br_elapsed_time', $_POST['br_elapsed_time']);
+  }
+  if (isset($_POST['br_moving_time'])) {
+    update_post_meta($post_id, 'br_moving_time', $_POST['br_moving_time']);
+  }
+  if (isset($_POST['br_average_speed'])) {
+    update_post_meta($post_id, 'br_average_speed', $_POST['br_average_speed']);
+  }
+  if (isset($_POST['br_max_speed'])) {
+    update_post_meta($post_id, 'br_max_speed', $_POST['br_max_speed']);
+  }
+  if (isset($_POST['br_distance'])) {
+    update_post_meta($post_id, 'br_distance', $_POST['br_distance']);
+  }
+  if (isset($_POST['br_total_elevation_gain'])) {
+    update_post_meta($post_id, 'br_total_elevation_gain', $_POST['br_total_elevation_gain']);
+  }
+  if (isset($_POST['br_photos'])) {
+    update_post_meta($post_id, 'br_photos', $_POST['br_photos']);
   }
 }
 
@@ -368,11 +654,13 @@ function cc_mime_types2($mimes)
 }
 add_filter('upload_mimes', 'cc_mime_types2');
 
-add_filter('manage_ride_posts_columns', 'set_custom_edit_br_columns');
+
+
+add_filter('manage_rides_posts_columns', 'set_custom_edit_br_columns');
 
 function set_custom_edit_br_columns($columns)
 {
-  $columns['br_highlight'] = __('Highlight', 'rides');
+  $columns['br_highlight'] = __('Strava ID', 'bike-ride');
 
   $columns = array(
     'cb' => $columns['cb'],
@@ -384,13 +672,14 @@ function set_custom_edit_br_columns($columns)
   return $columns;
 }
 
-add_action('manage_ride_posts_custom_column', 'custom_br_column', 10, 2);
+add_action('manage_rides_posts_custom_column', 'custom_br_column', 10, 2);
 function custom_br_column($column, $post_id)
 {
   switch ($column) {
 
     case 'br_id':
-      echo get_post_meta($post_id, 'br_id', true);
+      $sid = get_post_meta($post_id, 'br_id', true);
+      echo("<a href='https://www.strava.com/activities/" . $sid . "' target='_external'>" . $sid . "</a>");
       break;
   }
 }
